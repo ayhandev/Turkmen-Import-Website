@@ -1,0 +1,96 @@
+{% extends 'base_layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="card p-5">
+        <div class="content">
+            {% if orders %}
+            <div class="title has-text-centered">Мои покупки</div>
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="header-item">Номер покупки</div>
+                    <div class="header-item">Товар</div>
+                    <div class="header-item">Общяя сумма</div>
+                    <div class="header-item">Статус</div>
+                    <div class="header-item">Статус оплаты</div>
+                </div>
+                <div class="table-body">
+                    {% for order in orders %}
+                    <div class="table-row">
+                        <div class="table-cell">{{ order }}</div>
+                        <div class="table-cell">
+                            {% for order_product in order.order_products.all %}
+                            <a href="{% url 'shop:product_detail' order_product.product.pk %}">
+                                {{ order_product }}
+                            </a>,
+                            {% endfor %}
+                        </div>
+                        <div class="table-cell">{{ order.total_price }} $</div>
+                        <div class="table-cell">{{ order.status }}</div>
+                        <div class="table-cell">{{ order.payment_status }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <style>
+            .table-container {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .table-header, .table-row {
+                display: flex;
+                width: 100%;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .table-header {
+                font-weight: bold;
+                background-color: #f4f4f4;
+            }
+            
+            .header-item, .table-cell {
+                flex: 1;
+                padding: 8px;
+                text-align: center;
+                min-width: 120px; /* Фиксированная минимальная ширина для ячеек */
+            }
+            
+            .table-body {
+                flex-direction: column;
+            }
+            
+            .table-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .table-cell {
+                padding: 8px;
+                border-left: 1px solid #ddd;
+                overflow: hidden; /* Предотвращает переполнение текста */
+                text-overflow: ellipsis; /* Добавляет многоточие для переполнения */
+                white-space: nowrap; /* Запрещает перенос текста на следующую строку */
+            }
+            
+            .table-cell:first-child {
+                border-left: none;
+            }
+            
+            /* Опционально: сделать фон ячеек более заметным */
+            .table-row:nth-child(even) .table-cell {
+                background-color: #f9f9f9;
+            }
+            </style>
+            
+            {% else %}
+            <p class="title has-text-centered">У вас нету покупок</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

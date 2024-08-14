@@ -1,0 +1,5 @@
+<p>Здравствуйте, {{ user.username }}!</p>
+<p>Пожалуйста, подтвердите ваш email, используя код ниже:</p>
+<p><strong>{{ code }}</strong></p>
+<p>Или перейдите по следующей ссылке:</p>
+<a href="http://{{ domain }}/confirm-email/?code={{ code }}">Подтвердить email</a>

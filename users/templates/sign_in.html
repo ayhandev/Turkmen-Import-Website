@@ -1,0 +1,43 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TURKMEN IMPORT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bulma.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+</head>
+    {% block auth %}
+    <h1 class="has-text-centered has-text-weight-bold title" style="margin-top: 6%">Добро пожаловать в TURKMEN IMPORT</h1>
+        <div class="columns is-centered" style="margin-top: 1%">
+            <div class="column is-4">
+                <div class="box">
+                    <form class="form  has-text-centered" method="post">
+                        <h1 class="title is-size-2 has-text-centered">Войти</h1>
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="field">
+                                <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="button is-fullwidth" style="background-color: #787153; color: white;">
+                            Продолжить
+                        </button>
+                        <p class="content mt-3">
+                            У вас нету аккаунта?
+                            <span>
+                            <a href="{% url 'users:sign_up' %}">Зарегистрироватся</a>
+                        </span>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+

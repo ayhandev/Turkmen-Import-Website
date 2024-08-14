@@ -1,0 +1,125 @@
+{% extends 'base_layout.html' %}
+{% load categories %}
+
+{% block slider %}
+    <div class="container-slide">
+        <div id="carousel-demo" class="carousel">
+            {% for slide in slides %}
+                <div class="item-1">
+                    <img class="slider-img" src="{{ slide.image.url }}" alt="">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="columns mt-2">
+        <div class="column is-one-fifth sidebar">
+            {% categories %}
+        </div>
+        <div class="column main-content">
+            <div class="columns is-multiline is-centered product-list">
+                {% for product in products %}
+                    <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                        <a href="{% url 'shop:product_detail' product.pk %}">
+                        <div class="card product_card" style="min-height: 540px">
+                            <div class="card-image">
+                                <figure class="image" style="min-height: 345px;">
+                                    <img src="{{ product.thumb.url }}" alt="Placeholder image">
+                                </figure>
+                                <div class="has-text-right m-3">
+                                    {% if product.is_new %}
+                                        <span class="tag is-danger">Новинка!</span>
+                                    {% endif %}
+                                    {% if product.is_discounted %}
+                                        <span class="tag is-primary">Скидка!</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-content">
+                                        <p class="title is-4">{{ product }}</p>
+                                    </div>
+                                </div>
+                                <div class="content has-text-weight-bold">
+                                    <div class="columns">
+                                        <div class="column is-size-3">
+                                            {{ product.price }} $
+                                        </div>
+                                        <div class="column has-text-right">
+                                            <a href="{% url 'shop:products' %}?product={{ product.id }}">
+                                                <ion-icon name="cart-outline" class="order"></ion-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<style>
+    .container-slide {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+    }
+
+    .item-1 {
+        min-width: 100%;
+    }
+
+    .slider-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar {
+        @media (max-width: 1024px) {
+            display: none;
+        }
+    }
+
+    .main-content {
+        @media (max-width: 1024px) {
+            width: 100%;
+        }
+    }
+
+    .product-list .column {
+        margin-bottom: 20px;
+    }
+
+    .product_card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            display: none;
+        }
+    }
+</style>

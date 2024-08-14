@@ -1,0 +1,14 @@
+<aside class="menu has-background-info-light p-2" style="min-height: 100%; border-radius: 10px">
+    <p class="menu-label is-size-3">
+        <b>Категории</b>
+    </p>
+    <ul class="menu-list">
+        {% for category in categories %}
+            <li>
+                <a class='has-text-weight-bold has-text-centered is-size-5' style="margin-bottom: 15px;"  href="{% url 'shop:products' %}?category={{ category.pk }}">
+                    {{ category }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</aside>

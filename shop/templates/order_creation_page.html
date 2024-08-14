@@ -1,0 +1,125 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="columns is-mobile is-multiline">
+            <!-- Колонка с формой заказа -->
+            <div class="column is-12-mobile is-12-tablet is-6-desktop">
+                <div class="box">
+                    <form method="post" action="{% url 'shop:create_order' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="title is-size-4 has-text-centered">
+                            Оформить заказ:
+                        </div>
+                        {% for field in form %}
+                            <div class="field">
+                                <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="button is-fullwidth is-success">Заказать</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Колонка с информацией о заказе -->
+            <div class="column is-12-mobile is-12-tablet is-6-desktop">
+                <div class="box">
+                    <a class="button is-danger is-fullwidth" href="{% url 'shop:cart' %}">Вернуться в корзину</a>
+                    <hr>
+                    <div class="title is-size-4">О заказе</div>
+                    <div class="order-details">
+                        {% for item in cart_items %}
+                            <div class="order-item">
+                                <div class="order-item-image">
+                                    <img src="{{ item.product.thumb.url }}" alt="" class="image is-96x96">
+                                </div>
+                                <div class="order-item-info">
+                                    <p class="order-item-name">{{ item.product.title }}</p>
+                                    <p class="order-item-price">{{ item.product.price }} $</p>
+                                    <p class="order-item-quantity">Количество:  {{ item.quantity }}</p>
+                                    <p class="order-item-total">Общая сумма: {{ item.total_price }} $</p>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    </div>
+                    <p class="title is-size-4">Общая сумма заказа: {{ total_price }} $ </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<style>
+    .order-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .order-item {
+        display: flex;
+        align-items: center; /* Выравнивание по вертикали */
+        padding: 1rem;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 0.5rem;
+        gap: 1rem; /* Отступ между изображением и информацией */
+    }
+
+    .order-item-image {
+        flex: 0 0 auto;
+        width: 96px; /* Фиксированная ширина изображения */
+        height: 96px; /* Фиксированная высота изображения */
+        overflow: hidden; /* Скрываем лишнее при обрезке */
+    }
+
+    .order-item-image img {
+        width: 100%;
+        height: 100%; /* Высота в соответствии с шириной */
+        object-fit: cover; /* Обеспечиваем правильное отображение изображения */
+        border-radius: 4px; /* Скругление углов изображения */
+    }
+
+    .order-item-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .order-item-name {
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+    }
+
+    .order-item-price,
+    .order-item-quantity,
+    .order-item-total {
+        color: #666;
+        margin: 0;
+    }
+
+    .order-item-quantity,
+    .order-item-total {
+        font-size: 0.875rem;
+    }
+
+    .title {
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .order-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .order-item-image {
+            margin-bottom: 0.5rem;
+            width: 80px; /* Уменьшаем размер изображения на мобильных устройствах */
+            height: 80px; /* Уменьшаем размер изображения на мобильных устройствах */
+        }
+
+        .order-item-info {
+            text-align: left;
+        }
+    }
+</style>
