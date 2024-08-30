@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.shortcuts import render, redirect
-from .forms import ResetPasswordForm, SignUpForm, SignInForm, EditProfileForm, PasswordChangeForm
+from .forms import ResetPasswordForm, SignUpForm, SignInForm, EditProfileForm
 from django.contrib import messages
 
 def sign_up(request):
@@ -12,7 +12,7 @@ def sign_up(request):
     return render(request, 'sign_up.html', {
         'form': form
     })
-    
+
 
 def sign_in(request):
     form = SignInForm(data=request.POST or None)
@@ -53,3 +53,7 @@ def reset_password(request):
     else:
         form = ResetPasswordForm(request.user)
     return render(request, 'reset_password.html', {'form': form})
+
+
+def orr(request):
+    return render(request, 'or.html')

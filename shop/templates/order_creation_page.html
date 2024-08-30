@@ -35,15 +35,15 @@
                                 </div>
                                 <div class="order-item-info">
                                     <p class="order-item-name">{{ item.product.title }}</p>
-                                    <p class="order-item-price">{{ item.product.price }} $</p>
+                                    <p class="order-item-price">{{ item.product.price }} TMT</p>
                                     <p class="order-item-quantity">Количество:  {{ item.quantity }}</p>
-                                    <p class="order-item-total">Общая сумма: {{ item.total_price }} $</p>
+                                    <p class="order-item-total">Общая сумма: {{ item.total_price }} TMT</p>
                                 </div>
                             </div>
                             <hr>
                         {% endfor %}
                     </div>
-                    <p class="title is-size-4">Общая сумма заказа: {{ total_price }} $ </p>
+                    <p class="title is-size-4">Общая сумма заказа: {{ total_price }} TMT </p>
                 </div>
             </div>
         </div>

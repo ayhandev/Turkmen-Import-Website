@@ -1,5 +1,6 @@
 {% extends 'base_layout.html' %}
 {% load categories %}
+{% load static %}
 
 {% block slider %}
     <div class="container-slide">
@@ -14,15 +15,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="columns mt-2">
-        <div class="column is-one-fifth sidebar">
-            {% categories %}
-        </div>
-        <div class="column main-content">
-            <div class="columns is-multiline is-centered product-list">
-                {% for product in products %}
-                    <div class="column is-12-mobile is-6-tablet is-4-desktop">
-                        <a href="{% url 'shop:product_detail' product.pk %}">
+
+<div class="columns mt-2">
+    <div class="column is-one-fifth sidebar">
+        {% categories %}
+    </div>
+    <div class="column main-content">
+        <div class="columns is-multiline is-centered product-list">
+            {% for product in products %}
+                <div class="column is-12-mobile is-6-tablet is-4-desktop">
+                    <a href="{% url 'shop:product_detail' product.pk %}">
                         <div class="card product_card" style="min-height: 540px">
                             <div class="card-image">
                                 <figure class="image" style="min-height: 345px;">
@@ -42,14 +44,25 @@
                                     <div class="media-content">
                                         <p class="title is-4">{{ product }}</p>
                                     </div>
+
                                 </div>
+
+
                                 <div class="content has-text-weight-bold">
                                     <div class="columns">
                                         <div class="column is-size-3">
-                                            {{ product.price }} $
+                                            {{ product.price }} TMT
+
                                         </div>
+                                        {% if product.price2 and product.price2|floatformat:2 != "0.00" %}
+    <p class="is-size-5-mobile is-size-4-tablet is-size-3-desktop" style="margin-top: -20px; text-decoration: line-through; color: black;">
+        {{ product.price2 }} TMT
+    </p>
+{% endif %}
+
+                                        <div></div>
                                         <div class="column has-text-right">
-                                            <a href="{% url 'shop:products' %}?product={{ product.id }}">
+                                            <a href="{% url 'shop:product_detail' product.pk %}">
                                                 <ion-icon name="cart-outline" class="order"></ion-icon>
                                             </a>
                                         </div>
@@ -58,11 +71,12 @@
                             </div>
                         </div>
                     </a>
-                    </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
+</div>
+
 {% endblock %}
 
 <style>

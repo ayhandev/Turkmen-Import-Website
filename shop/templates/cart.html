@@ -20,7 +20,7 @@
         {% endfor %}
     </div>
     {% endif %}
-    
+
     <section class="hero">
         <div class="hero-head">
             <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -114,7 +114,7 @@
                             <div class="content">Товар: {{ total_quantity }}</div>
                         </div>
                         <div class="column">
-                            <div class="content">Общяя сумма: {{ total_price }} $</div>
+                            <div class="content">Общяя сумма: {{ total_price }} TMT</div>
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                                         <img src="{{ item.product.thumb.url }}" alt="" class="image is-64x64">
                                     </td>
                                     <td>{{ item }}</td>
-                                    <td>{{ item.product.price }} $</td>
+                                    <td>{{ item.product.price }} TMT</td>
                                     <td>
                                         <div class="quantity">
                                             <a href="{% url 'shop:edit_cart_item' item.id %}?action=add" class="button is-small is-info">+</a>
@@ -148,7 +148,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {{ item.total_price }} $
+                                        {{ item.total_price }} TMT
                                     </td>
                                     <td>
                                         <a href="{% url 'shop:delete_cart_item' item.pk %}" class="button is-small is-danger">
@@ -164,62 +164,62 @@
                         {% endif %}
                     </div>
                 </div>
-            
+
                 <style>
                     /* Основные стили для кнопок и колонок */
                     .button {
                         margin: 0.5rem;
                         padding: 0.5rem 1rem;
                     }
-            
+
                     .columns.is-mobile {
                         display: flex;
                         flex-direction: row;
                         flex-wrap: wrap;
                     }
-            
+
                     .column.is-narrow {
                         flex: 1 1 auto;
                     }
-            
+
                     /* Адаптивность кнопок */
                     @media (max-width: 768px) {
                         .columns.is-mobile {
                             flex-direction: column;
                             align-items: stretch;
                         }
-            
+
                         .column.is-narrow {
                             width: 100%;
                             margin-bottom: 1rem;
                         }
-            
+
                         .button.has-text-left,
                         .button.has-text-right {
                             width: 100%;
                             text-align: center;
                         }
-            
+
                         .button.is-info {
                             margin-top: 1rem;
                         }
-            
+
                         .table {
                             display: block;
                             width: 100%;
                             border-collapse: collapse;
                         }
-            
+
                         .table thead {
                             display: none;
                         }
-            
+
                         .table tbody, .table tr {
                             display: block;
                             width: 100%;
                             margin-bottom: 1rem;
                         }
-            
+
                         .table td {
                             display: block;
                             width: 100%;
@@ -228,7 +228,7 @@
                             border-bottom: 1px solid #ddd;
                             box-sizing: border-box;
                         }
-            
+
                         .table td::before {
                             content: attr(data-label);
                             position: absolute;
@@ -241,29 +241,43 @@
                             border-right: 1px solid #ddd;
                             white-space: nowrap;
                         }
-            
+
                         .table td img {
                             width: 64px;
                             height: 64px;
                             object-fit: cover;
                             margin-bottom: 0.5rem;
                         }
-            
+
                         .quantity {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
                         }
-            
+
                         .quantity a {
                             margin: 0;
                         }
                     }
                 </style>
             {% endblock %}
-             
+
 </div>
 </section>
+ <footer class="footer">
+        <div class="container">
+            <div class="left">
+                <h3><strong style="color: white;">TURKMEN IMPORT</strong></h3>
+                <a href="{% url 'shop:about' %}">О нас</a>
+                <a href="{% url 'shop:zakaz' %}">Заказать другое</a>
+            </div>
+            <div class="right">
+                <!--<h5><span><strong style="color: white;"><a href="https://ayhan008.pythonanywhere.com/home/">Designed By Ayhan</a></strong></span></h5>-->
+            </div>
+        </div>
+    </footer>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
 <script>
     bulmaCarousel.attach('#carousel-demo', {
@@ -277,7 +291,7 @@
 <script>
     $(document).ready(function() {
         $(".messages").fadeIn().delay(2000).fadeOut();
-        
+
         // Toggle the navbar menu on mobile
         $('.navbar-burger').on('click', function () {
             var target = $(this).data('target');
@@ -287,6 +301,68 @@
 </script>
 
 <style>
+    .footer {
+        background-color: #787153;
+        padding: 15px 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000; /* Чтобы футер был поверх другого контента */
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .footer .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap; /* Для переноса текста на мобильных устройствах */
+    }
+    .footer .left, .footer .right {
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+    .footer .left {
+        justify-content: flex-start;
+    }
+    .footer .right {
+        justify-content: flex-end;
+        text-align: right; /* Выравнивание текста по правому краю */
+    }
+    .footer a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 15px;
+    }
+    .footer a:hover {
+        text-decoration: underline;
+    }
+    .footer h5 {
+        margin: 0;
+        font-size: 0.9em;
+    }
+    @media (max-width: 600px) {
+        .footer {
+            padding: 10px 0;
+        }
+        .footer .container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .footer .left, .footer .right {
+            margin: 5px 0;
+        }
+        .footer .right {
+            font-size: 0.8em;
+        }
+    }
     .logo {
         height: 80px;
         width: auto;
@@ -302,7 +378,7 @@
     .mobile-search {
         padding: 20px 50px 0px;
         background-color: #fff; /* Фон убран, белый цвет */
-        
+
     }
 
     /* Стили для мобильных устройств */

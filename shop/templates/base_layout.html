@@ -4,13 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>TURKMEN IMPORT</title>
+    <meta name="google-site-verification" content="gc_orWZsCJysYLkzU1H2GLRHy5sSsXgFstVwKe94uzk" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block meta_description %}Мы привозим товары под заказ из Китая в Ашхабад в течении 2 недель{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}turkmen import, telefon zakaz etmek, hytaydan telefon zakaz etmek, telefon pod zakaz, internet magazyn, телефон под заказ, туркмен импорт, заказать товар из китая{% endblock %}">
     <link rel="stylesheet" href="{% static 'bulma.min.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
     <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <meta name="msvalidate.01" content="6445C0B47E4D791756482270FF724A79" />
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'YOUR_TRACKING_ID');
+    </script>
 </head>
 <body >
     {% if messages %}
@@ -20,11 +32,80 @@
         {% endfor %}
     </div>
     {% endif %}
-    
+
     <section class="hero">
         <div class="hero-head">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 {% if user.is_authenticated %}
+                <div class="navbar-brand">
+                    <a href="{% url 'shop:products' %}">
+                        <img class="logo" src="{% static 'images/logo.png' %}" alt="Logo">
+                    </a>
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                       data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <!-- Бренды в мобильной версии -->
+                    <div class="navbar-start is-hidden-desktop mobile-brands" id="brand-container">
+                        {% brands %}
+                    </div>
+                    <!-- Бренды в десктопной версии -->
+                    <div class="navbar-start is-hidden-mobile">
+                        {% brands %}
+                    </div>
+                    <button id="show-more" class="is-hidden">Далее</button>
+                    <div class="navbar-end">
+                        <!-- Поле поиска для десктопной версии -->
+                        <div class="navbar-item is-hidden-touch" style="margin-top: 15px;">
+                            <form action="{% url 'shop:products' %}" method="get">
+                                <div class="field has-addons">
+                                    <div class="control">
+                                        <input class="input" type="search" placeholder="Искать ваш товар" name="search">
+                                    </div>
+                                    <div class="control">
+                                        <button class="button " style="background-color: #787153; color: white;" type="submit">Поиск</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Кнопки Orders и Cart -->
+                        <div class="navbar-item buttons-group">
+                            <a class="navbar-item order" href="{% url 'shop:orders' %}">
+                                <button class="button is-dark is-fullwidth">Покупки</button>
+                            </a>
+                            <a class="navbar-item order" href="{% url 'shop:cart' %}">
+                                <button class="button is-success is-fullwidth">
+                                    <ion-icon name="cart-outline" class="mr-2"></ion-icon> Корзина
+                                </button>
+                            </a>
+                        </div>
+
+                        <!-- Dropdown для пользователя -->
+                        <div class="navbar-item" style="margin: 0 auto;">
+                            <div class="dropdown is-hoverable">
+                                <div class="dropdown-trigger">
+                                    <button class="button is-warning" aria-haspopup="true" aria-controls="dropdown-menu">
+                                        Добро пожаловать {{ user }}
+                                    </button>
+                                </div>
+                                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                    <div class="dropdown-content">
+                                        <a href="{% url 'users:edit_profile' %}" class="dropdown-item">Редактировать профиль</a>
+                                        <a href="{% url 'users:reset_password' %}" class="dropdown-item">Поменять пароль</a>
+                                        <hr class="dropdown-divider">
+                                        <a href="{% url 'users:sign_out' %}" class="dropdown-item">Выйти</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
                 <div class="navbar-brand">
                     <a href="{% url 'shop:products' %}">
                         <img class="logo" src="{% static 'images/logo.png' %}" alt="Logo">
@@ -76,24 +157,14 @@
                         <div class="navbar-item">
                             <div class="dropdown is-hoverable">
                                 <div class="dropdown-trigger">
-                                    <button class="button is-warning" aria-haspopup="true" aria-controls="dropdown-menu">
-                                        Добро пожаловать <span class="has-text-weight-bold mx-1">{{ user }}</span>
-                                    </button>
+                                        <a href="{% url "users:sign_in" %}" class="button is-warning">Войти | Зарегистрироваться</a>
                                 </div>
-                                <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                                    <div class="dropdown-content">
-                                        <a href="{% url 'users:edit_profile' %}" class="dropdown-item">Редактировать профиль</a>
-                                        <a href="{% url 'users:reset_password' %}" class="dropdown-item">Поменять пароль</a>
-                                        <hr class="dropdown-divider">
-                                        <a href="{% url 'users:sign_out' %}" class="dropdown-item">Выйти</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
                 {% endif %}
             </nav>
+
 
             <!-- Поле поиска для мобильной версии -->
             <div class="mobile-search is-hidden-desktop">
@@ -116,6 +187,18 @@
             {% block content %}{% endblock %}
         </div>
     </section>
+     <footer class="footer">
+        <div class="container">
+            <div class="left">
+                <h3><strong style="color: white;">TURKMEN IMPORT</strong></h3>
+                <a href="{% url 'shop:about' %}">О нас</a>
+                <a href="{% url 'shop:zakaz' %}">Заказать другое</a>
+            </div>
+            <div class="right">
+                <!--<h5><span><strong style="color: white;"><a href="https://ayhan008.pythonanywhere.com/home/">Designed By Ayhan</a></strong></span></h5>-->
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
     <script>
@@ -130,7 +213,7 @@
     <script>
         $(document).ready(function() {
             $(".messages").fadeIn().delay(2000).fadeOut();
-            
+
             // Toggle the navbar menu on mobile
             $('.navbar-burger').on('click', function () {
                 var target = $(this).data('target');
@@ -140,6 +223,68 @@
     </script>
 
     <style>
+        .footer {
+            background-color: #787153;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999; /* Чтобы футер был поверх другого контента */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Для переноса текста на мобильных устройствах */
+        }
+        .footer .left, .footer .right {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        .footer .left {
+            justify-content: flex-start;
+        }
+        .footer .right {
+            justify-content: flex-end;
+            text-align: right; /* Выравнивание текста по правому краю */
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer h5 {
+            margin: 0;
+            font-size: 0.9em;
+        }
+        @media (max-width: 600px) {
+            .footer {
+                padding: 10px 0;
+            }
+            .footer .container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer .left, .footer .right {
+                margin: 5px 0;
+            }
+            .footer .right {
+                font-size: 0.8em;
+            }
+        }
         .logo {
             height: 80px;
             width: auto;
@@ -155,7 +300,7 @@
         .mobile-search {
             padding: 20px 50px 0px;
             background-color: #fff; /* Фон убран, белый цвет */
-            
+
         }
 
         /* Стили для мобильных устройств */
@@ -245,6 +390,65 @@
                 align-items: center;
             }
         }
+        /* CSS */
+.hidden {
+    display: none;
+}
+
+.brand-item {
+    display: inline-block;
+    width: 23%; /* или другой подходящий размер */
+    margin: 1%;
+}
+
+#brand-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#brand-container.hidden .brand-item:nth-child(n+5) {
+    display: none;
+}
+
+#brand-container.show-more .brand-item {
+    display: inline-block;
+}
+
+#show-more {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
     </style>
+    <script>
+        // JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const showMoreButton = document.getElementById('show-more');
+    const brandContainer = document.getElementById('brand-container');
+
+    // Получить количество брендов
+    const brandItems = brandContainer.querySelectorAll('.brand-item');
+
+    // Показать кнопку, если брендов больше 4
+    if (brandItems.length > 4) {
+        showMoreButton.classList.remove('hidden');
+    }
+
+    // Обработчик нажатия на кнопку
+    showMoreButton.addEventListener('click', function() {
+        brandContainer.classList.toggle('show-more');
+        if (brandContainer.classList.contains('show-more')) {
+            showMoreButton.textContent = 'Скрыть';
+        } else {
+            showMoreButton.textContent = 'Далее';
+        }
+    });
+});
+
+    </script>
 </body>
 </html>

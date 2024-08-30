@@ -22,7 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q%2_9t&tbj^goj0_5q^5i@ev&us^)&*e&9!59$v7-t6xli+w$l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
+
 
 ALLOWED_HOSTS = ["*"]
 
@@ -36,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop', 
+    'django.contrib.sitemaps',
+    'shop',
     'users'
 ]
 
@@ -48,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'config.middleware.Redirect404Middleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -102,14 +106,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587  
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your@gmail.com'  
+EMAIL_HOST_PASSWORD = 'password gmail'  
+DEFAULT_FROM_EMAIL = 'jyour@gmail.com'
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Samarkand'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -118,11 +129,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'files/static'), ]
+
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'files/static')]  # Путь к статическим файлам, которые используются во время разработки
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Путь к директории, куда будут собраны статические файлы при выполнении collectstatic
 
 MEDIA_URL = '/uploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'files/uploads')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files/uploads')  # Путь к директории, где хранятся загруженные медиа файлы
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

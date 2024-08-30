@@ -33,42 +33,42 @@
                     {% endfor %}
                 </div>
             </div>
-            
+
             <style>
             .table-container {
                 display: flex;
                 flex-direction: column;
                 width: 100%;
             }
-            
+
             .table-header, .table-row {
                 display: flex;
                 width: 100%;
                 border-bottom: 1px solid #ddd;
             }
-            
+
             .table-header {
                 font-weight: bold;
                 background-color: #f4f4f4;
             }
-            
+
             .header-item, .table-cell {
                 flex: 1;
                 padding: 8px;
                 text-align: center;
                 min-width: 120px; /* Фиксированная минимальная ширина для ячеек */
             }
-            
+
             .table-body {
                 flex-direction: column;
             }
-            
+
             .table-row {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
             }
-            
+
             .table-cell {
                 padding: 8px;
                 border-left: 1px solid #ddd;
@@ -76,17 +76,17 @@
                 text-overflow: ellipsis; /* Добавляет многоточие для переполнения */
                 white-space: nowrap; /* Запрещает перенос текста на следующую строку */
             }
-            
+
             .table-cell:first-child {
                 border-left: none;
             }
-            
+
             /* Опционально: сделать фон ячеек более заметным */
             .table-row:nth-child(even) .table-cell {
                 background-color: #f9f9f9;
             }
             </style>
-            
+
             {% else %}
             <p class="title has-text-centered">У вас нету покупок</p>
             {% endif %}

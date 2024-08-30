@@ -20,7 +20,7 @@
         {% endfor %}
     </div>
     {% endif %}
-    
+
     <section class="hero">
         <div class="hero-head">
             <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -55,7 +55,7 @@
                                         <input class="input" type="search" placeholder="Искать ваш товар" name="search">
                                     </div>
                                     <div class="control">
-                                        <button class="button is-info" type="submit">Поиск</button>
+                                        <button class="button " style="background-color: #787153; color: white;" type="submit">Поиск</button>
                                     </div>
                                 </div>
                             </form>
@@ -119,6 +119,20 @@
 {% endblock %}
 </div>
 </section>
+ <footer class="footer">
+        <div class="container">
+            <div class="left">
+                <h3><strong style="color: white;">TURKMEN IMPORT</strong></h3>
+                <a href="{% url 'shop:about' %}">О нас</a>
+                <a href="{% url 'shop:zakaz' %}">Заказать другое</a>
+            </div>
+            <div class="right">
+                <!--<h5><span><strong style="color: white;"><a href="https://ayhan008.pythonanywhere.com/home/">Designed By Ayhan</a></strong></span></h5>-->
+            </div>
+        </div>
+    </footer>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
 <script>
     bulmaCarousel.attach('#carousel-demo', {
@@ -132,7 +146,7 @@
 <script>
     $(document).ready(function() {
         $(".messages").fadeIn().delay(2000).fadeOut();
-        
+
         // Toggle the navbar menu on mobile
         $('.navbar-burger').on('click', function () {
             var target = $(this).data('target');
@@ -142,6 +156,68 @@
 </script>
 
 <style>
+    .footer {
+        background-color: #787153;
+        padding: 15px 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000; /* Чтобы футер был поверх другого контента */
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .footer .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap; /* Для переноса текста на мобильных устройствах */
+    }
+    .footer .left, .footer .right {
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+    .footer .left {
+        justify-content: flex-start;
+    }
+    .footer .right {
+        justify-content: flex-end;
+        text-align: right; /* Выравнивание текста по правому краю */
+    }
+    .footer a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 15px;
+    }
+    .footer a:hover {
+        text-decoration: underline;
+    }
+    .footer h5 {
+        margin: 0;
+        font-size: 0.9em;
+    }
+    @media (max-width: 600px) {
+        .footer {
+            padding: 10px 0;
+        }
+        .footer .container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .footer .left, .footer .right {
+            margin: 5px 0;
+        }
+        .footer .right {
+            font-size: 0.8em;
+        }
+    }
     .logo {
         height: 80px;
         width: auto;
@@ -157,7 +233,7 @@
     .mobile-search {
         padding: 20px 50px 0px;
         background-color: #fff; /* Фон убран, белый цвет */
-        
+
     }
 
     /* Стили для мобильных устройств */

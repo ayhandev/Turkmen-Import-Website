@@ -1,0 +1,18 @@
+{% extends "base_layout.html" %}
+{% load static %}
+{% load brands %}
+
+{% block content %}
+<div class="brands-page">
+    <h1 class="title">Бренды</h1>
+    <div class="brands-container">
+        {% if brands %}
+            <div class="brand-group">
+                {% brands %}
+            </div>
+        {% else %}
+            <p>Нет брендов</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

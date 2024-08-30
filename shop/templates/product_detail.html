@@ -7,7 +7,7 @@
         <div class="column is-12-mobile is-6-tablet is-6-desktop">
             <div class="box">
                 <figure class="image product-detail-image">
-                    <img src="{{ product.thumb.url }}" alt="Изображение товара">
+                    <img src="{{ product.thumb.url }}" alt="Изображение товара" id="productImage">
                 </figure>
             </div>
         </div>
@@ -22,10 +22,17 @@
                     <span class="tag is-primary">Скидка!</span>
                     {% endif %}
                 </p>
-                <p class="title is-size-5-mobile is-size-4-tablet is-size-3-desktop has-text-info">{{ product.price }} $</p>
+                <p class="title is-size-5-mobile is-size-4-tablet is-size-3-desktop has-text-info">{{ product.price }} TMT</p>
+                {% if product.price2 and product.price2|floatformat:2 != "0.00" %}
+    <p class="is-size-5-mobile is-size-4-tablet is-size-3-desktop" style="margin-top: -20px; text-decoration: line-through; color: black;">
+        {{ product.price2 }} TMT
+    </p>
+{% endif %}
+
                 <p class="title is-size-6-mobile is-size-5-tablet is-size-4-desktop">Бренд: {{ product.brand }}</p>
                 <p class="title is-size-6-mobile is-size-5-tablet is-size-4-desktop">Просмотры: {{ product.view_count }}</p>
-                
+                <p class="title is-size-6-mobile is-size-5-tablet is-size-4-desktop">Описание: {{ product.description}}</p>
+
                 <a href="{% url 'shop:add_cart' product.id%}" class="button is-success is-fullwidth-mobile"
                     style="padding: 12px 20px; background-color: #48c774; color: white; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s; margin-bottom: 30px;">
                     Добавить в корзину
@@ -99,5 +106,90 @@
         {% endif %}
     </div>
 </div>
+
+<!-- Модальное окно для увеличенного изображения -->
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
 </div>
+
+<style>
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+/* Центрирование на мобильных устройствах */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+        max-width: none;
+    }
+}
+
+@keyframes zoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+<script>
+// Получаем модальное окно
+var modal = document.getElementById("imageModal");
+
+// Получаем изображение и модальный элемент
+var img = document.getElementById("productImage");
+var modalImg = document.getElementById("modalImage");
+
+// Получаем элемент закрытия
+var close = document.getElementsByClassName("close")[0];
+
+// Когда пользователь кликает на изображение, открываем модальное окно
+img.onclick = function(){
+  modal.style.display = "flex";  // Используем flex для центрирования
+  modalImg.src = this.src;
+}
+
+// Когда пользователь кликает на <span> (крестик), закрываем модальное окно
+close.onclick = function() {
+  modal.style.display = "none";
+}
+</script>
+
 {% endblock %}

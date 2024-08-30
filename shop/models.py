@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
+from django.urls import reverse
 
 
 # Create your models here.
@@ -9,16 +11,22 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     description = models.TextField()
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price2 = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     is_new = models.BooleanField()
     is_discounted = models.BooleanField()
     category = models.ForeignKey('shop.Category', on_delete=models.CASCADE)
     brand = models.ForeignKey('shop.Brand', on_delete=models.CASCADE)
     thumb = models.ImageField(default='default.jpg')
     view_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
+    keywords = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('shop:product_detail', args=[str(self.id)])
 
     class Meta:
         verbose_name = 'Product'
@@ -65,7 +73,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         return self.product.title
-    
+
     def total_price(self):
         return self.product.price * self.quantity
 
@@ -103,7 +111,7 @@ class OrderProduct(models.Model):
 
     def __str__(self):
         return f"{self.product} x{self.amount} - {self.order.customer.username}"
-    
+
 
 RATE_CHOICES = [
    (1, '1 - Очень плохо'),
@@ -121,3 +129,11 @@ class Review(models.Model):
 
    def __str__(self):
        return self.user.username
+
+
+
+class other(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.TextField(blank=True)
+    price = models.IntegerField(null=True)
+    number = models.CharField(max_length=100)

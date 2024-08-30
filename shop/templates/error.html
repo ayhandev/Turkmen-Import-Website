@@ -1,14 +1,10 @@
-{% extends 'base_layout.html' %}
-
+{% extends "base_layout.html" %}
+{% load static %}
 {% block content %}
     <div class="has-text-centered">
-        <div class="columns is-centered" style="margin-top: 100px">
-            <div class="column is-5">
-                <div class="box">
-                    <p class="title is-3">Ошибка!</p>
-                    <a href="{% url 'shop:cart' %}" class="button is-success is-fullwidth">Вернутся в главную страницу!</a>
-                </div>
-            </div>
-        </div>
+        <img src="{% static 'images/404.png' %}" alt="">
+        <h1 class="title"> Страница не найдена</h1>
+    <p>Извините, но страница, которую вы ищете, не существует.</p>
+    <a href="/">Вернуться на главную</a>
     </div>
-{% endblock %}
+    {% endblock content %}
