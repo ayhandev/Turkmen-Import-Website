@@ -3,4 +3,46 @@ venv/
 env/
 .Venv/
 
+# Настройки среды разработки
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
 
+# Файлы настройки ОС
+.DS_Store
+Thumbs.db
+
+# Логи и временные файлы
+*.log
+*.pot
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Конфигурационные файлы
+*.env
+*.ini
+*.cfg
+*.local
+
+# Базы данных SQLite
+*.sqlite3
+
+# Миграции Django
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Скомпилированные файлы
+*.so
+
+# Упаковка и билд
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Статика и медиа
+staticfiles/
+media/
